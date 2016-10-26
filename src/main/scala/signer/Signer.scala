@@ -24,10 +24,9 @@ object Signer {
 
     val signableString = s"$httpVerb\n$md5\n$contentType\n$expireSeconds\n$objectPath"
 
-    // use GoogleCredential.Builder to parse the private key from the pem file
-    val builder = new GoogleCredential.Builder()
+    val privateKey = new GoogleCredential.Builder()
       .setServiceAccountPrivateKeyFromPemFile(new java.io.File(pemFile))
-    val privateKey = builder.getServiceAccountPrivateKey
+      .getServiceAccountPrivateKey
 
     // sign the string
     val signature = java.security.Signature.getInstance("SHA256withRSA")
